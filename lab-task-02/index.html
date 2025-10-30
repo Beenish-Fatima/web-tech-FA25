@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Benis</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0a0a23;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .container {
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0);
+      border-radius: 15px;
+      padding: 40px;
+      margin-top: 60px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      color: #f1c40f;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .btn-warning {
+      background-color: #f1c40f;
+      border: none;
+      color: black;
+      font-weight: bold;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    .btn-warning:hover {
+      background-color: #d4ac0d;
+      color: white;
+    }
+
+    .invalid-feedback {
+      color: #ff7b7b;
+      font-size: 0.9rem;
+    }
+
+    label {
+      color: #f1c40f;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      background-color: #111132 !important;
+      color: white !important;
+      border: 1px solid #f1c40f !important;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      box-shadow: 0 0 5px #f1c40f;
+      outline: none;
+    }
+
+    .form-check-label {
+      color: white;
+    }
+
+    .is-valid {
+      border-color: #4CAF50 !important;
+    }
+
+    .is-invalid {
+      border-color: #ff7b7b !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Checkout Form</h2>
+    <form id="checkoutForm" novalidate>
+
+      <div class="mb-3">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" class="form-control" placeholder="Enter your name">
+        <div class="invalid-feedback">Full name must be at least 3 characters long.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-control" placeholder="Enter your email">
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" class="form-control" placeholder="Enter your phone number">
+        <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="address">Address</label>
+        <input type="text" id="address" class="form-control" placeholder="Enter your address">
+        <div class="invalid-feedback">Address is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="city">City</label>
+        <input type="text" id="city" class="form-control" placeholder="Enter your city">
+        <div class="invalid-feedback">City is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="postal">Postal Code</label>
+        <input type="text" id="postal" class="form-control" placeholder="Enter postal code">
+        <div class="invalid-feedback">Postal code must be 4–6 digits.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="country">Country</label>
+        <select id="country" class="form-select">
+          <option value="">Select Country</option>
+          <option>Pakistan</option>
+          <option>USA</option>
+          <option>UK</option>
+          <option>Canada</option>
+        </select>
+        <div class="invalid-feedback">Please select a country.</div>
+      </div>
+
+      <div class="mb-3">
+        <label>Payment Method</label><br>
+        <div class="form-check form-check-inline">
+          <input type="radio" name="payment" value="card" class="form-check-input" id="card">
+          <label for="card" class="form-check-label">Card</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input type="radio" name="payment" value="cash" class="form-check-input" id="cash">
+          <label for="cash" class="form-check-label">Cash on Delivery</label>
+        </div>
+        <div class="invalid-feedback d-block" id="paymentError" style="display:none;">Please select a payment method.</div>
+      </div>
+
+      <div id="cardFields" style="display:none;">
+        <div class="mb-3">
+          <label for="cardNumber">Card Number</label>
+          <input type="text" id="cardNumber" class="form-control" placeholder="Enter card number">
+          <div class="invalid-feedback">Please enter a valid card number.</div>
+        </div>
+        <div class="mb-3">
+          <label for="expiry">Expiry Date</label>
+          <input type="text" id="expiry" class="form-control" placeholder="MM/YY">
+          <div class="invalid-feedback">Please enter expiry date.</div>
+        </div>
+      </div>
+
+      <div class="form-check mb-4">
+        <input type="checkbox" id="terms" class="form-check-input">
+        <label for="terms" class="form-check-label">I agree to the <span style="color:#f1c40f;">terms and conditions</span>.</label>
+        <div class="invalid-feedback d-block" id="termsError" style="display:none;">You must agree before submitting.</div>
+      </div>
+
+      <button type="submit" class="btn btn-warning">Submit Order</button>
+
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $(function() {
+      $("input[name='payment']").change(function() {
+        if ($(this).val() === "card") {
+          $("#cardFields").slideDown();
+        } else {
+          $("#cardFields").slideUp();
+        }
+      });
+
+      $("#checkoutForm").submit(function(e) {
+        e.preventDefault();
+        let valid = true;
+
+        const name = $("#fullname").val().trim();
+        if (name.length < 3) { markInvalid("#fullname"); valid = false; } else markValid("#fullname");
+
+        const email = $("#email").val().trim();
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!emailPattern.test(email)) { markInvalid("#email"); valid = false; } else markValid("#email");
+
+        const phone = $("#phone").val().trim();
+        if (!/^[0-9]{10,}$/.test(phone)) { markInvalid("#phone"); valid = false; } else markValid("#phone");
+
+        const address = $("#address").val().trim();
+        if (address === "") { markInvalid("#address"); valid = false; } else markValid("#address");
+
+        const city = $("#city").val().trim();
+        if (city === "") { markInvalid("#city"); valid = false; } else markValid("#city");
+
+        const postal = $("#postal").val().trim();
+        if (!/^[0-9]{4,6}$/.test(postal)) { markInvalid("#postal"); valid = false; } else markValid("#postal");
+
+        const country = $("#country").val();
+        if (country === "") { markInvalid("#country"); valid = false; } else markValid("#country");
+
+        const payment = $("input[name='payment']:checked").val();
+        if (!payment) { $("#paymentError").show(); valid = false; } else $("#paymentError").hide();
+
+        if (payment === "card") {
+          const cardNumber = $("#cardNumber").val().trim();
+          const expiry = $("#expiry").val().trim();
+          if (cardNumber === "") { markInvalid("#cardNumber"); valid = false; } else markValid("#cardNumber");
+          if (expiry === "") { markInvalid("#expiry"); valid = false; } else markValid("#expiry");
+        }
+
+        if (!$("#terms").is(":checked")) { $("#termsError").show(); valid = false; } else $("#termsError").hide();
+
+        if (!valid) {
+          $("html, body").animate({ scrollTop: $(".is-invalid:first").offset().top - 80 }, 500);
+          return false;
+        }
+
+        alert("✅ Form submitted successfully!");
+        this.reset();
+        $(".is-valid").removeClass("is-valid");
+        $("#cardFields").hide();
+      });
+
+      function markInvalid(selector) {
+        $(selector).addClass("is-invalid").removeClass("is-valid");
+      }
+      function markValid(selector) {
+        $(selector).addClass("is-valid").removeClass("is-invalid");
+      }
+    });
+  </script>
+</body>
+</html>
