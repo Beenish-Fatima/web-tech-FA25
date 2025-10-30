@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Bootstrap</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    .contact-header {
+      background: #0a1324; 
+      color: #fff;
+      padding: 50px 0;
+      text-align: center;
+    }
+    .contact-header h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #ffc107; 
+    }
+    .contact-section {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 80vh;
+    }
+    .contact-left {
+      flex: 1;
+      background: #fff;
+      padding: 60px;
+    }
+    .contact-right {
+      flex: 1;
+      background: #ffc107;
+      padding: 60px;
+    }
+    .contact-right input,
+    .contact-right textarea {
+      margin-bottom: 20px;
+    }
+    .btn-dark {
+      background: #0a1324;
+      border: none;
+    }
+    .btn-dark:hover {
+      background: #000;
+    }
+
+    @media (max-width: 768px) {
+      .contact-left,
+      .contact-right {
+        flex: 100%;
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header class="contact-header">
+    <div class="container">
+      <h1>Contact us</h1>
+    </div>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <!-- Left Column -->
+    <div class="contact-left">
+      <h2 class="fw-bold mb-4">Address</h2>
+      <p class="text-muted mb-4">
+        Duis imperdiet, arcu vel hendrerit dignissim, purus turpis iaculis nisi, 
+        maximus dapibus nulla nibh ac tellus. Phasellus eleifend nisl tempor, dictum cras amet.
+      </p>
+
+      <div class="mb-4">
+        <h5 class="fw-bold">BeBuilder Tempor dictum</h5>
+        <p class="mb-1">Level 13, 2 Elizabeth St,<br>Sydney 2000, Australia</p>
+        <p class="mb-1"><strong>Phone:</strong> +61 (0) 3 8376 6284</p>
+        <p><strong>Email:</strong> noreply@envato.com</p>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="contact-right">
+      <h2 class="fw-bold mb-4">Send a message</h2>
+      <form>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <input type="text" class="form-control" placeholder="Your name">
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="email" class="form-control" placeholder="Your e-mail">
+          </div>
+        </div>
+        <input type="text" class="form-control mb-3" placeholder="Subject">
+        <textarea class="form-control mb-3" rows="5" placeholder="Message"></textarea>
+        <button type="submit" class="btn btn-dark px-4 py-2">Send message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
