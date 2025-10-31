@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BeBuilder + CRUD App + Checkout</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">BeBuilder</div>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Services</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#crud">CRUD App</a></li>
+        <li><a href="#checkout">Checkout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1>We Build Beautiful Experiences</h1>
+      <p>Professional design and development that brings your brand to life.</p>
+      <a href="#features" class="btn">Explore Services</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="about-container">
+      <div class="about-text">
+        <h2>About Us</h2>
+        <p>
+          At <strong>BeBuilder</strong>, we specialize in crafting modern, responsive, and accessible websites 
+          that help businesses grow. Our team combines creative design with cutting-edge technology 
+          to deliver digital experiences that truly make an impact.
+        </p>
+        <p>
+          Whether you need a sleek portfolio, a strong brand identity, or a full e-commerce solution — 
+          we’ve got you covered with quality and creativity.
+        </p>
+        <a href="#features" class="btn">Learn More</a>
+      </div>
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1000&q=60" alt="BeBuilder creative team" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="features">
+    <h2>Our Services</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=500&q=60" alt="Web Design" />
+        <h3>Web Design</h3>
+        <p>Clean, modern designs optimized for performance and usability.</p>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=60" alt="Development" />
+        <h3>Development</h3>
+        <p>Full-stack solutions built with precision and scalability in mind.</p>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=500&q=60" alt="Marketing" />
+        <h3>Marketing</h3>
+        <p>Creative campaigns that connect your brand with your audience.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial-list">
+      <div class="testimonial">
+        <p>"BeBuilder transformed our online presence — highly recommended!"</p>
+        <span>- Sarah J., CEO of BrightCo</span>
+      </div>
+      <div class="testimonial">
+        <p>"Professional, creative, and responsive throughout the entire process."</p>
+        <span>- David M., Startup Founder</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRUD APP SECTION -->
+  <section id="crud" class="about" style="background-color:#f9f9f9;">
+    <div class="container mt-4">
+      <h2 class="text-center mb-4" style="color:#f1c40f;">CRUD App with jQuery + JSONPlaceholder</h2>
+
+      <!-- Form -->
+      <form id="postForm" class="card p-3 mb-4 shadow">
+        <input type="hidden" id="postId">
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" id="title" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Body</label>
+          <textarea id="body" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn" style="background:#f1c40f;color:#111;">Save</button>
+        <button type="reset" class="btn btn-dark">Clear</button>
+      </form>
+
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table table-bordered shadow">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Body</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="postTable">
+            <tr><td colspan="4" class="text-center">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKOUT SECTION -->
+  <section id="checkout" style="background-color:#0a0a23;padding:60px 0;">
+    <div class="container" style="max-width:700px;">
+      <h2 class="text-center mb-4" style="color:#f1c40f;">Checkout Form</h2>
+      <form id="checkoutForm" novalidate>
+        <div class="mb-3">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" class="form-control" placeholder="Enter your name">
+          <div class="invalid-feedback">Full name must be at least 3 characters long.</div>
+        </div>
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="Enter your email">
+          <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+        <div class="mb-3">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" class="form-control" placeholder="Enter your phone number">
+          <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+        </div>
+        <div class="mb-3">
+          <label for="address">Address</label>
+          <input type="text" id="address" class="form-control" placeholder="Enter your address">
+          <div class="invalid-feedback">Address is required.</div>
+        </div>
+        <div class="mb-3">
+          <label for="city">City</label>
+          <input type="text" id="city" class="form-control" placeholder="Enter your city">
+          <div class="invalid-feedback">City is required.</div>
+        </div>
+        <div class="mb-3">
+          <label for="postal">Postal Code</label>
+          <input type="text" id="postal" class="form-control" placeholder="Enter postal code">
+          <div class="invalid-feedback">Postal code must be 4–6 digits.</div>
+        </div>
+        <div class="mb-3">
+          <label for="country">Country</label>
+          <select id="country" class="form-select">
+            <option value="">Select Country</option>
+            <option>Pakistan</option>
+            <option>USA</option>
+            <option>UK</option>
+            <option>Canada</option>
+          </select>
+          <div class="invalid-feedback">Please select a country.</div>
+        </div>
+        <div class="mb-3">
+          <label>Payment Method</label><br>
+          <div class="form-check form-check-inline">
+            <input type="radio" name="payment" value="card" class="form-check-input" id="card">
+            <label for="card" class="form-check-label">Card</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input type="radio" name="payment" value="cash" class="form-check-input" id="cash">
+            <label for="cash" class="form-check-label">Cash on Delivery</label>
+          </div>
+          <div class="invalid-feedback d-block" id="paymentError" style="display:none;">Please select a payment method.</div>
+        </div>
+        <div id="cardFields" style="display:none;">
+          <div class="mb-3">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" class="form-control" placeholder="Enter card number">
+            <div class="invalid-feedback">Please enter a valid card number.</div>
+          </div>
+          <div class="mb-3">
+            <label for="expiry">Expiry Date</label>
+            <input type="text" id="expiry" class="form-control" placeholder="MM/YY">
+            <div class="invalid-feedback">Please enter expiry date.</div>
+          </div>
+        </div>
+        <div class="form-check mb-4">
+          <input type="checkbox" id="terms" class="
