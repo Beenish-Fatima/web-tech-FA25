@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beenish Fatima | Personal CV</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">Beenish Fatima</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#cv">My CV</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HOME SECTION -->
+  <section id="home" class="home-section">
+    <div class="home-content">
+      <h1>Hi, I’m <span>Beenish Fatima</span></h1>
+      <p>A passionate Web Developer and Designer focused on creating beautiful, functional web experiences.</p>
+      <a href="#cv" class="btn">View My CV</a>
+    </div>
+  </section>
+
+  <!-- CV SECTION -->
+  <section id="cv" class="cv-section">
+    <h2>My Personal CV</h2>
+
+    <div class="cv-item">
+      <h3 class="cv-heading">Personal Information</h3>
+      <div class="cv-details">
+        <p><strong>Name:</strong> Beenish Fatima</p>
+        <p><strong>Email:</strong> beenishfatima282@gmail.com</p>
+        <p><strong>Phone:</strong> +92 300 0000000</p>
+        <p><strong>Location:</strong> Lahore, Pakistan</p>
+      </div>
+    </div>
+
+    <div class="cv-item">
+      <h3 class="cv-heading">Education</h3>
+      <div class="cv-details">
+        <p><strong>BS Computer Science</strong> – COMSATS University (2022–2026)</p>
+        <p>Focused on Web Technologies, Mobile App Development, and Artificial Intelligence.</p>
+      </div>
+    </div>
+
+    <div class="cv-item">
+      <h3 class="cv-heading">Skills</h3>
+      <div class="cv-details">
+        <ul>
+          <li>HTML, CSS, JavaScript</li>
+          <li>React & React Native</li>
+          <li>Node.js & Express</li>
+          <li>Git / GitHub</li>
+          <li>MySQL, Firebase</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cv-item">
+      <h3 class="cv-heading">Experience / Projects</h3>
+      <div class="cv-details">
+        <p><strong>BeBuilder Website:</strong> Designed a responsive, business website layout.</p>
+        <p><strong>Farmers Market App:</strong> Created a React Native app connecting vendors and customers.</p>
+        <p><strong>Portfolio Site:</strong> Built a personal portfolio to showcase my work.</p>
+      </div>
+    </div>
+
+    <div class="cv-item">
+      <h3 class="cv-heading">Contact Information</h3>
+      <div class="cv-details">
+        <p><strong>Email:</strong> beenishfatima282@gmail.com</p>
+        <p><strong>LinkedIn:</strong> <a href="#" target="_blank">linkedin.com/in/beenishfatima</a></p>
+        <p><strong>GitHub:</strong> <a href="#" target="_blank">github.com/Beenish-Fatima</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact" class="footer">
+    <div class="footer-content">
+      <h3>Let’s Connect</h3>
+      <p>Interested in collaborating or hiring me? Let’s get in touch!</p>
+      <a href="mailto:beenishfatima282@gmail.com" class="btn btn-dark">Email Me</a>
+     
+      <ul class="social-links">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Accordion effect for CV sections
+    const headings = document.querySelectorAll('.cv-heading');
+    headings.forEach((heading) => {
+      heading.addEventListener('click', () => {
+        const details = heading.nextElementSibling;
+
+        // Close other open sections
+        document.querySelectorAll('.cv-details').forEach((section) => {
+          if (section !== details) {
+            section.style.maxHeight = null;
+            section.parentElement.classList.remove('active');
+          }
+        });
+
+        // Toggle current section
+        if (details.style.maxHeight) {
+          details.style.maxHeight = null;
+          heading.parentElement.classList.remove('active');
+        } else {
+          details.style.maxHeight = details.scrollHeight + "px";
+          heading.parentElement.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
