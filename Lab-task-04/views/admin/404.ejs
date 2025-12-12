@@ -1,0 +1,27 @@
+<% layout('layouts/admin-layout') -%>
+<%
+    headerTitle = '404 - Page Not Found';
+    headerIcon = 'exclamation-triangle';
+%>
+
+<div class="row">
+    <div class="col-md-6 mx-auto text-center py-5">
+        <div class="error-template">
+            <h1><i class="bi bi-exclamation-triangle-fill text-warning"></i></h1>
+            <h1 class="display-1">404</h1>
+            <h2>Page Not Found</h2>
+            <div class="error-details my-4">
+                <p class="lead">Sorry, the page you are looking for does not exist.</p>
+                <p>The requested URL <code><%= req.originalUrl %></code> was not found.</p>
+            </div>
+            <div class="error-actions mt-4">
+                <a href="/admin" class="btn btn-primary btn-lg me-3">
+                    <i class="bi bi-house-door"></i> Go to Dashboard
+                </a>
+                <a href="/admin/products" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-box-seam"></i> View Products
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

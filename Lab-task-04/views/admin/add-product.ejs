@@ -1,0 +1,125 @@
+<% layout('layouts/admin-layout') -%>
+<%
+    currentPage = 'add-product';
+    headerTitle = 'Add New Product';
+    headerIcon = 'plus-circle';
+%>
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Product Information</h5>
+            </div>
+            <div class="card-body">
+                <form action="/admin/products/add" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Product Name *</label>
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="name" 
+                                   name="name" 
+                                   value="<%= product ? product.name : '' %>"
+                                   required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="category" class="form-label">Category *</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics" <%= (product && product.category === 'Electronics') ? 'selected' : '' %>>Electronics</option>
+                                <option value="Clothing" <%= (product && product.category === 'Clothing') ? 'selected' : '' %>>Clothing</option>
+                                <option value="Books" <%= (product && product.category === 'Books') ? 'selected' : '' %>>Books</option>
+                                <option value="Home & Garden" <%= (product && product.category === 'Home & Garden') ? 'selected' : '' %>>Home & Garden</option>
+                                <option value="Sports" <%= (product && product.category === 'Sports') ? 'selected' : '' %>>Sports</option>
+                                <option value="Other" <%= (product && product.category === 'Other') ? 'selected' : '' %>>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description *</label>
+                        <textarea class="form-control" 
+                                  id="description" 
+                                  name="description" 
+                                  rows="4" 
+                                  required><%= product ? product.description : '' %></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="price" class="form-label">Price ($) *</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="price" 
+                                   name="price" 
+                                   step="0.01" 
+                                   min="0"
+                                   value="<%= product ? product.price : '' %>"
+                                   required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="stock" class="form-label">Stock Quantity *</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="stock" 
+                                   name="stock" 
+                                   min="0"
+                                   value="<%= product ? product.stock : '0' %>"
+                                   required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="discount" class="form-label">Discount (%)</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="discount" 
+                                   name="discount" 
+                                   min="0" 
+                                   max="100"
+                                   value="<%= product ? product.discount : '0' %>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Product Image</label>
+                        <input type="file" 
+                               class="form-control" 
+                               id="image" 
+                               name="image"
+                               accept="image/*">
+                        <% if (product && product.image) { %>
+                            <div class="mt-2">
+                                <small>Current image: <%= product.image %></small>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                   type="checkbox" 
+                                   id="featured" 
+                                   name="featured" 
+                                   <%= (product && product.featured) ? 'checked' : '' %>>
+                            <label class="form-check-label" for="featured">
+                                Mark as Featured Product
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="/admin/products" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Back to Products
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Add Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

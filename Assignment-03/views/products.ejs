@@ -1,0 +1,157 @@
+<%- include('partials/header') %>
+
+<section class="page-hero">
+    <div class="container">
+        <h1>Our Products</h1>
+        <p>Discover amazing products for your needs</p>
+    </div>
+</section>
+
+<section class="filters-section">
+    <div class="container">
+        <form id="filterForm" method="GET" action="/products">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="category">Category</label>
+                    <select name="category" id="category">
+                        <option value="all">All Categories</option>
+                        <% if(categories && categories.length > 0) { %>
+                            <% categories.forEach(cat => { %>
+                                <option value="<%= cat %>" 
+                                        <%= query.category === cat ? 'selected' : '' %>>
+                                    <%= cat %>
+                                </option>
+                            <% }); %>
+                        <% } %>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Price Range</label>
+                    <div class="price-range">
+                        <input type="number" name="minPrice" placeholder="Min $" 
+                               value="<%= query.minPrice || '' %>">
+                        <span>to</span>
+                        <input type="number" name="maxPrice" placeholder="Max $" 
+                               value="<%= query.maxPrice || '' %>">
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="search">Search</label>
+                    <input type="text" name="search" id="search" 
+                           placeholder="Search products..." 
+                           value="<%= query.search || '' %>">
+                </div>
+                
+                <div class="filter-group">
+                    <button type="submit" class="btn">Apply Filters</button>
+                    <a href="/products" class="btn btn-secondary">Clear</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="products-section">
+    <div class="container">
+        <% if(products && products.length > 0) { %>
+            <div class="products-grid">
+                <% products.forEach(product => { %>
+                <div class="product-card">
+                    <% if(product.featured) { %>
+                        <span class="featured-badge">Featured</span>
+                    <% } %>
+                    
+                    <div class="product-image">
+                        <img src="<%= product.image || 'https://via.placeholder.com/300x200' %>" 
+                             alt="<%= product.name %>">
+                    </div>
+                    
+                    <div class="product-info">
+                        <div class="product-category"><%= product.category %></div>
+                        <h3><%= product.name %></h3>
+                        <p class="product-description">
+                            <%= product.description ? product.description.substring(0, 80) + '...' : 'No description' %>
+                        </p>
+                        
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <% for(let i = 1; i <= 5; i++) { %>
+                                    <% if(i <= (product.rating || 0)) { %>
+                                        <i class="fas fa-star"></i>
+                                    <% } else { %>
+                                        <i class="far fa-star"></i>
+                                    <% } %>
+                                <% } %>
+                                <span class="rating-text">(<%= product.rating || 0 %>)</span>
+                            </div>
+                            
+                            <div class="product-stock 
+                                <%= product.stock > 10 ? 'in-stock' : 
+                                    product.stock > 0 ? 'low-stock' : 'out-of-stock' %>">
+                                <%= product.stock > 0 ? product.stock + ' in stock' : 'Out of stock' %>
+                            </div>
+                        </div>
+                        
+                        <div class="product-footer">
+                            <div class="product-price">$<%= (product.price || 0).toFixed(2) %></div>
+                            <a href="/products/<%= product._id %>" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+            
+            <!-- Pagination -->
+            <% if(totalPages > 1) { %>
+            <div class="pagination">
+                <nav>
+                    <% if(currentPage > 1) { %>
+                        <a href="?page=<%= currentPage - 1 %>" class="btn">Previous</a>
+                    <% } %>
+                    
+                    <% for(let i = 1; i <= totalPages; i++) { %>
+                        <% if(i === currentPage) { %>
+                            <span class="btn current-page"><%= i %></span>
+                        <% } else { %>
+                            <a href="?page=<%= i %>" class="btn btn-outline"><%= i %></a>
+                        <% } %>
+                    <% } %>
+                    
+                    <% if(currentPage < totalPages) { %>
+                        <a href="?page=<%= currentPage + 1 %>" class="btn">Next</a>
+                    <% } %>
+                </nav>
+                <p class="pagination-info">
+                    Page <%= currentPage %> of <%= totalPages %> 
+                    (Showing <%= products.length %> of <%= totalProducts %> products)
+                </p>
+            </div>
+            <% } %>
+            
+        <% } else { %>
+            <div style="text-align: center; padding: 60px 20px;">
+                <h3>No products found</h3>
+                <p>Try adjusting your filters or check back later.</p>
+                <a href="/products" class="btn" style="margin-top: 20px;">View All Products</a>
+            </div>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
+
+<script>
+    document.getElementById('filterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const params = new URLSearchParams();
+        
+        for (let [key, value] of formData.entries()) {
+            if (value) params.append(key, value);
+        }
+        
+        window.location.href = `/products?${params.toString()}`;
+    });
+</script>

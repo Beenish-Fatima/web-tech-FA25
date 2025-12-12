@@ -1,0 +1,56 @@
+<!-- REMOVE the layout include line -->
+<div class="dashboard">
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-box"></i>
+            </div>
+            <div class="stat-info">
+                <h3><%= totalProducts %></h3>
+                <p>Total Products</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-cubes"></i>
+            </div>
+            <div class="stat-info">
+                <h3><%= totalStock %></h3>
+                <p>Total Stock</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="stat-info">
+                <h3>0</h3>
+                <p>Orders Today</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-info">
+                <h3>$0</h3>
+                <p>Revenue</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="action-buttons">
+            <a href="/admin/products/add" class="action-btn">
+                <i class="fas fa-plus"></i> Add New Product
+            </a>
+            <a href="/admin/products" class="action-btn">
+                <i class="fas fa-edit"></i> Manage Products
+            </a>
+        </div>
+    </div>
+</div>

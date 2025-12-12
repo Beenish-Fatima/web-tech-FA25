@@ -1,0 +1,45 @@
+<!-- REMOVE the layout include line -->
+<div class="products-header">
+    <h2>All Products</h2>
+    <a href="/admin/products/add" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Add Product
+    </a>
+</div>
+
+<div class="table-container">
+    <% if (products && products.length > 0) { %>
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td><%= product.name %></td>
+                        <td><%= product.category %></td>
+                        <td>$<%= product.price.toFixed(2) %></td>
+                        <td><%= product.stock %></td>
+                        <td class="actions">
+                            <a href="/admin/products/edit/<%= product._id %>" class="btn btn-sm btn-edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <form action="/admin/products/<%= product._id %>?_method=DELETE" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-delete" onclick="return confirm('Are you sure?')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No products found. <a href="/admin/products/add">Add your first product</a></p>
+    <% } %>
+</div>

@@ -1,0 +1,33 @@
+<% if (product) { %>
+    <div class="product-detail">
+        <a href="/products" class="back-link">← Back to Products</a>
+        
+        <div class="product-detail-grid">
+            <div class="product-image">
+                <img src="<%= product.imageUrl || 'https://via.placeholder.com/400' %>" alt="<%= product.name %>">
+            </div>
+            <div class="product-info">
+                <h1><%= product.name %></h1>
+                <p class="price">$<%= product.price.toFixed(2) %></p>
+                <p class="category"><strong>Category:</strong> <%= product.category %></p>
+                <p class="stock"><strong>Availability:</strong> <%= product.stock > 0 ? product.stock + ' in stock' : 'Out of stock' %></p>
+                <div class="description">
+                    <h3>Description</h3>
+                    <p><%= product.description %></p>
+                </div>
+                <% if (product.stock > 0) { %>
+                    <button class="btn-add-to-cart">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                <% } else { %>
+                    <button class="btn-add-to-cart" disabled>
+                        Out of Stock
+                    </button>
+                <% } %>
+            </div>
+        </div>
+    </div>
+<% } else { %>
+    <p>Product not found.</p>
+    <a href="/products">Back to Products</a>
+<% } %>

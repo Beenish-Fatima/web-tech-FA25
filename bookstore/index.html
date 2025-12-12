@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChapterVerse | Bookstore & Reading Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>Chapter<span class="logo-accent">Verse</span></span>
+            </a>
+            <div class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#books" class="nav-link">Browse</a></li>
+                    <li><a href="#tracker" class="nav-link">My Library</a></li>
+                    <li><a href="#stats" class="nav-link">Stats</a></li>
+                    <li><a href="#challenges" class="nav-link">Challenges</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search books..." id="search-input">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <button class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Track Your Reading <span class="highlight">Journey</span></h1>
+                <p class="hero-subtitle">Discover new books, track your progress, and join our community of readers.</p>
+                
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-book"></i>
+                        <h4>10,000+ Books</h4>
+                        <p>Explore our vast collection</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Track Progress</h4>
+                        <p>Monitor your reading habits</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-trophy"></i>
+                        <h4>Earn Badges</h4>
+                        <p>Complete reading challenges</p>
+                    </div>
+                </div>
+                
+                <div class="hero-buttons">
+                    <a href="#books" class="btn primary">Browse Books</a>
+                    <a href="#tracker" class="btn secondary">Start Tracking</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="book-stack">
+                    <div class="book book-1"></div>
+                    <div class="book book-2"></div>
+                    <div class="book book-3"></div>
+                    <div class="book book-4"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section id="books" class="books">
+        <div class="container">
+            <h2 class="section-title">Browse <span>Books</span></h2>
+            <p class="section-subtitle">Discover your next favorite read</p>
+            
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="fiction">Fiction</button>
+                    <button class="filter-btn" data-filter="fantasy">Fantasy</button>
+                    <button class="filter-btn" data-filter="scifi">Sci-Fi</button>
+                    <button class="filter-btn" data-filter="mystery">Mystery</button>
+                    <button class="filter-btn" data-filter="nonfiction">Non-Fiction</button>
+                </div>
+                <div class="sort-controls">
+                    <select id="sort-select" class="sort-select">
+                        <option value="popular">Most Popular</option>
+                        <option value="newest">Newest</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Books Grid -->
+            <div class="books-grid" id="books-grid">
+                <!-- Books will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Tracker Section -->
+    <section id="tracker" class="tracker">
+        <div class="container">
+            <h2 class="section-title">My <span>Reading Library</span></h2>
+            <p class="section-subtitle">Track your reading progress</p>
+            
+            <div class="tracker-container">
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-books">0</h3>
+                            <p>Books in Library</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="completed-books">0</h3>
+                            <p>Books Completed</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-pages">0</h3>
+                            <p>Pages Read</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="reading-days">0</h3>
+                            <p>Reading Days</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Library Tabs -->
+                <div class="library-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="reading">Currently Reading</button>
+                        <button class="tab-btn" data-tab="want">Want to Read</button>
+                        <button class="tab-btn" data-tab="completed">Completed</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <!-- Currently Reading -->
+                        <div class="library-list active" id="reading-list">
+                            <div class="empty-state" id="empty-reading">
+                                <i class="fas fa-book-reader"></i>
+                                <h4>No books in progress</h4>
+                                <p>Start reading a book from our collection!</p>
+                            </div>
+                            <!-- Books will be added here by JavaScript -->
+                        </div>
+
+                        <!-- Want to Read -->
+                        <div class="library-list" id="want-list">
+                            <div class="empty-state" id="empty-want">
+                                <i class="fas fa-heart"></i>
+                                <h4>Your wishlist is empty</h4>
+                                <p>Add books you want to read!</p>
+                            </div>
+                            <!-- Books will be added here -->
+                        </div>
+
+                        <!-- Completed -->
+                        <div class="library-list" id="completed-list">
+                            <div class="empty-state" id="empty-completed">
+                                <i class="fas fa-trophy"></i>
+                                <h4>No books completed yet</h4>
+                                <p>Finish reading your first book!</p>
+                            </div>
+                            <!-- Books will be added here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Book Form -->
+                <div class="add-book-form">
+                    <h3>Add New Book to Library</h3>
+                    <form id="add-book-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="book-title">Book Title</label>
+                                <input type="text" id="book-title" placeholder="Enter book title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="book-author">Author</label>
+                                <input type="text" id="book-author" placeholder="Author name" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="book-pages">Total Pages</label>
+                                <input type="number" id="book-pages" placeholder="300" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="book-status">Status</label>
+                                <select id="book-status">
+                                    <option value="reading">Currently Reading</option>
+                                    <option value="want">Want to Read</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="current-page">Current Page (if reading)</label>
+                            <input type="number" id="current-page" placeholder="50" min="0">
+                        </div>
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-plus"></i> Add to Library
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="stats">
+        <div class="container">
+            <h2 class="section-title">Reading <span>Statistics</span></h2>
+            
+            <div class="stats-container">
+                <div class="reading-progress">
+                    <h3>Monthly Progress</h3>
+                    <div class="progress-bars">
+                        <div class="progress-item">
+                            <span>Books Read</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                            <span>3/4</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Pages Read</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <span>900/1500</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Reading Days</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            <span>27/30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="genre-breakdown">
+                    <h3>Genre Distribution</h3>
+                    <div class="genre-chart">
+                        <canvas id="genre-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="reading-goals">
+                    <h3>Yearly Goals</h3>
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <h4>Books to Read</h4>
+                            <span>4/12</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 33%"></div>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <h4>Pages Goal</h4>
+                            <span>900/5000</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 18%"></div>
+                        </div>
+                    </div>
+                    <button class="btn outline">Set New Goals</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Challenges -->
+    <section id="challenges" class="challenges">
+        <div class="container">
+            <h2 class="section-title">Reading <span>Challenges</span></h2>
+            <p class="section-subtitle">Complete challenges and earn badges</p>
+            
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3>7-Day Streak</h3>
+                    <p>Read for 7 consecutive days</p>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 57%"></div>
+                        </div>
+                        <span>4/7 days</span>
+                    </div>
+                    <button class="btn outline">Join Challenge</button>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Around the World</h3>
+                    <p>Read books from 5 different countries</p>
+                    <div class="challenge-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%"></div>
+                        </div>
+                        <span>2/5 countries</span>
+                    </div>
+                    <button class="btn outline">Start Challenge</button>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Genre Explorer</h3>
+                    <p>Read 3 books from different genres</p>
+                    <div class="achievement-badges">
+                        <div class="badge unlocked"><i class="fas fa-book"></i></div>
+                        <div class="badge"><i class="fas fa-book"></i></div>
+                        <div class="badge"><i class="fas fa-book"></i></div>
+                    </div>
+                    <button class="btn outline">View Genres</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <i class="fas fa-book-open"></i>
+                        <span>Chapter<span class="logo-accent">Verse</span></span>
+                    </a>
+                    <p class="footer-tagline">Track your reading journey, one page at a time.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#books">Browse Books</a></li>
+                        <li><a href="#tracker">My Library</a></li>
+                        <li><a href="#stats">Statistics</a></li>
+                        <li><a href="#challenges">Challenges</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Bookish Updates</h4>
+                    <p>Get reading tips and book recommendations!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2024</span> ChapterVerse. All rights reserved.</p>
+                <p class="reading-quote">"The more that you read, the more things you will know." – Dr. Seuss</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Book Modal -->
+    <div class="book-modal" id="book-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-book-cover" id="modal-cover"></div>
+                <div class="modal-book-details">
+                    <h3 id="modal-title"></h3>
+                    <p class="modal-author" id="modal-author"></p>
+                    <div class="modal-meta">
+                        <span class="modal-pages" id="modal-pages"></span>
+                        <span class="modal-genre" id="modal-genre"></span>
+                        <div class="modal-rating" id="modal-rating"></div>
+                    </div>
+                    <p class="modal-description" id="modal-description"></p>
+                    
+                    <div class="modal-actions">
+                        <button class="btn primary add-to-library">
+                            <i class="fas fa-plus"></i> Add to Library
+                        </button>
+                        <button class="btn outline mark-reading">
+                            <i class="fas fa-book-open"></i> Start Reading
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!-- REMOVE the layout include line -->
+<div class="form-container">
+    <h2>Edit Product</h2>
+    
+    <form action="/admin/products/<%= product._id %>?_method=PUT" method="POST" class="product-form">
+        <div class="form-group">
+            <label for="name">Product Name *</label>
+            <input type="text" id="name" name="name" value="<%= product.name %>" required class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description *</label>
+            <textarea id="description" name="description" rows="4" required class="form-control"><%= product.description %></textarea>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="price">Price *</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" 
+                       value="<%= product.price %>" required class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="stock">Stock *</label>
+                <input type="number" id="stock" name="stock" min="0" 
+                       value="<%= product.stock %>" required class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Category *</label>
+                <select id="category" name="category" required class="form-control">
+                    <option value="Electronics" <%= product.category === 'Electronics' ? 'selected' : '' %>>Electronics</option>
+                    <option value="Clothing" <%= product.category === 'Clothing' ? 'selected' : '' %>>Clothing</option>
+                    <option value="Books" <%= product.category === 'Books' ? 'selected' : '' %>>Books</option>
+                    <option value="Home" <%= product.category === 'Home' ? 'selected' : '' %>>Home</option>
+                    <option value="Sports" <%= product.category === 'Sports' ? 'selected' : '' %>>Sports</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="imageUrl">Image URL</label>
+            <input type="url" id="imageUrl" name="imageUrl" value="<%= product.imageUrl %>" 
+                   class="form-control" placeholder="https://example.com/image.jpg">
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Update Product
+            </button>
+            <a href="/admin/products" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

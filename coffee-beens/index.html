@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Bloom Café</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-coffee"></i>
+                    <span>Brew & Bloom</span>
+                </a>
+                <div class="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="#home" class="nav-link active">Home</a></li>
+                        <li><a href="#menu" class="nav-link">Menu</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#order" class="nav-link">Order</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                    <div class="nav-icons">
+                        <button class="cart-btn">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-count">0</span>
+                        </button>
+                        <button class="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Perfect Brew<span class="math-equation">½x = ¾</span></h1>
+                <h2 class="hero-subtitle">Where Math Meets Magic in Every Cup</h2>
+                <p class="hero-description">Discover the perfect equation for your daily coffee ritual. We blend premium beans with mathematical precision to create the ultimate coffee experience.</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn primary">View Menu</a>
+                    <a href="#order" class="btn secondary">Order Now</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="coffee-cup">
+                    <div class="cup"></div>
+                    <div class="handle"></div>
+                    <div class="steam">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="coffee-beans">
+                    <div class="bean"></div>
+                    <div class="bean"></div>
+                    <div class="bean"></div>
+                    <div class="bean"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <h2 class="section-title">Our <span>Menu</span></h2>
+            <p class="section-subtitle">Every drink is crafted with precision and love</p>
+            
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="coffee">Coffee</button>
+                <button class="filter-btn" data-category="tea">Tea</button>
+                <button class="filter-btn" data-category="pastry">Pastries</button>
+                <button class="filter-btn" data-category="special">Special</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="menu-grid">
+                <!-- Coffee Items -->
+                <div class="menu-item" data-category="coffee">
+                    <div class="item-image">
+                        <div class="image-placeholder coffee-1"></div>
+                        <span class="item-tag">Hot</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Espresso Equation</h3>
+                        <p>Strong & bold espresso with a hint of cinnamon</p>
+                        <div class="item-price">$4.50</div>
+                        <button class="add-to-cart" data-id="1">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="item-image">
+                        <div class="image-placeholder coffee-2"></div>
+                        <span class="item-tag">Iced</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Latte Logic</h3>
+                        <p>Creamy latte with vanilla bean infusion</p>
+                        <div class="item-price">$5.25</div>
+                        <button class="add-to-cart" data-id="2">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="item-image">
+                        <div class="image-placeholder coffee-3"></div>
+                        <span class="item-tag">Hot</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Cappuccino Calculus</h3>
+                        <p>Perfect foam-to-espresso ratio with cocoa dusting</p>
+                        <div class="item-price">$4.75</div>
+                        <button class="add-to-cart" data-id="3">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="tea">
+                    <div class="item-image">
+                        <div class="image-placeholder tea-1"></div>
+                        <span class="item-tag">Herbal</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Chamomile Theorem</h3>
+                        <p>Soothing chamomile with honey and lemon</p>
+                        <div class="item-price">$3.75</div>
+                        <button class="add-to-cart" data-id="4">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="tea">
+                    <div class="item-image">
+                        <div class="image-placeholder tea-2"></div>
+                        <span class="item-tag">Green</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Matcha Matrix</h3>
+                        <p>Premium matcha whisked to perfection</p>
+                        <div class="item-price">$5.50</div>
+                        <button class="add-to-cart" data-id="5">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="pastry">
+                    <div class="item-image">
+                        <div class="image-placeholder pastry-1"></div>
+                        <span class="item-tag">Fresh</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Croissant Constant</h3>
+                        <p>Buttery, flaky croissant with almond filling</p>
+                        <div class="item-price">$3.25</div>
+                        <button class="add-to-cart" data-id="6">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="pastry">
+                    <div class="item-image">
+                        <div class="image-placeholder pastry-2"></div>
+                        <span class="item-tag">Sweet</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Muffin Formula</h3>
+                        <p>Blueberry muffin with crumb topping</p>
+                        <div class="item-price">$3.50</div>
+                        <button class="add-to-cart" data-id="7">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="special">
+                    <div class="item-image">
+                        <div class="image-placeholder special-1"></div>
+                        <span class="item-tag">Seasonal</span>
+                    </div>
+                    <div class="item-info">
+                        <h3>Golden Ratio Brew</h3>
+                        <p>Special blend following the golden ratio principle</p>
+                        <div class="item-price">$6.00</div>
+                        <button class="add-to-cart" data-id="8">
+                            <i class="fas fa-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="order">
+        <div class="container">
+            <h2 class="section-title">Custom <span>Order</span></h2>
+            <p class="section-subtitle">Build your perfect coffee equation</p>
+            
+            <div class="order-container">
+                <!-- Coffee Customizer -->
+                <div class="customizer">
+                    <h3><i class="fas fa-sliders-h"></i> Customize Your Drink</h3>
+                    
+                    <div class="customize-option">
+                        <h4>Base Drink</h4>
+                        <div class="option-buttons">
+                            <button class="option-btn active" data-option="base" value="espresso">Espresso</button>
+                            <button class="option-btn" data-option="base" value="latte">Latte</button>
+                            <button class="option-btn" data-option="base" value="cappuccino">Cappuccino</button>
+                            <button class="option-btn" data-option="base" value="americano">Americano</button>
+                        </div>
+                    </div>
+
+                    <div class="customize-option">
+                        <h4>Size</h4>
+                        <div class="option-buttons">
+                            <button class="option-btn active" data-option="size" value="small">Small (8oz)</button>
+                            <button class="option-btn" data-option="size" value="medium">Medium (12oz)</button>
+                            <button class="option-btn" data-option="size" value="large">Large (16oz)</button>
+                        </div>
+                    </div>
+
+                    <div class="customize-option">
+                        <h4>Temperature</h4>
+                        <div class="option-buttons">
+                            <button class="option-btn active" data-option="temp" value="hot">Hot</button>
+                            <button class="option-btn" data-option="temp" value="iced">Iced</button>
+                        </div>
+                    </div>
+
+                    <div class="customize-option">
+                        <h4>Add-ons ($0.50 each)</h4>
+                        <div class="addons-grid">
+                            <label class="addon-checkbox">
+                                <input type="checkbox" data-addon="extra-shot">
+                                <span class="checkmark"></span>
+                                Extra Shot
+                            </label>
+                            <label class="addon-checkbox">
+                                <input type="checkbox" data-addon="vanilla">
+                                <span class="checkmark"></span>
+                                Vanilla Syrup
+                            </label>
+                            <label class="addon-checkbox">
+                                <input type="checkbox" data-addon="caramel">
+                                <span class="checkmark"></span>
+                                Caramel Drizzle
+                            </label>
+                            <label class="addon-checkbox">
+                                <input type="checkbox" data-addon="whipped-cream">
+                                <span class="checkmark"></span>
+                                Whipped Cream
+                            </label>
+                            <label class="addon-checkbox">
+                                <input type="checkbox" data-addon="cinnamon">
+                                <span class="checkmark"></span>
+                                Cinnamon Sprinkles
+                            </label>
+                            <label class="addon-checkbox">
+                                <input type="checkbox" data-addon="chocolate">
+                                <span class="checkmark"></span>
+                                Chocolate Shavings
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="order-summary">
+                        <h4>Your Order</h4>
+                        <div class="summary-details">
+                            <div class="summary-item">
+                                <span class="summary-label">Base:</span>
+                                <span class="summary-value" id="base-summary">Espresso</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Size:</span>
+                                <span class="summary-value" id="size-summary">Small</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Temperature:</span>
+                                <span class="summary-value" id="temp-summary">Hot</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Add-ons:</span>
+                                <span class="summary-value" id="addons-summary">None</span>
+                            </div>
+                            <div class="summary-item total">
+                                <span class="summary-label">Total:</span>
+                                <span class="summary-value" id="total-price">$4.50</span>
+                            </div>
+                        </div>
+                        <button class="btn primary add-custom-order">
+                            <i class="fas fa-calculator"></i> Add to Cart - $<span id="display-price">4.50</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cart Preview -->
+                <div class="cart-preview">
+                    <h3><i class="fas fa-shopping-bag"></i> Your Cart</h3>
+                    <div class="cart-items" id="cart-items">
+                        <div class="empty-cart">
+                            <i class="fas fa-coffee"></i>
+                            <p>Your cart is empty</p>
+                            <p>Add some delicious items!</p>
+                        </div>
+                    </div>
+                    <div class="cart-total">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="cart-subtotal">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax (8%):</span>
+                            <span id="cart-tax">$0.00</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total:</span>
+                            <span id="cart-total">$0.00</span>
+                        </div>
+                    </div>
+                    <button class="btn checkout-btn" disabled>
+                        <i class="fas fa-credit-card"></i> Checkout
+                    </button>
+                    <button class="btn clear-cart">
+                        <i class="fas fa-trash"></i> Clear Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Our <span>Story</span></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>The Perfect Equation</h3>
+                    <p>At Brew & Bloom, we believe coffee is more than just a drink - it's a mathematical art. Inspired by the equation <span class="math">½x = ¾</span>, we found our perfect brew ratio after 156 experiments.</p>
+                    <p>Every bean is measured with precision, every temperature calculated, and every pour timed to perfection. Our baristas are trained in both coffee craft and mathematical principles.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h4>156</h4>
+                            <p>Experiments</p>
+                        </div>
+                        <div class="stat">
+                            <h4>97.3%</h4>
+                            <p>Perfect Brews</p>
+                        </div>
+                        <div class="stat">
+                            <h4>∞</h4>
+                            <p>Customer Smiles</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="coffee-shop-scene">
+                        <div class="shop-window"></div>
+                        <div class="shop-door"></div>
+                        <div class="coffee-sign">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Find <span>Us</span></h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Visit Our Café</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location</h4>
+                                <p>123 Math Street<br>Geometry City, GC 10101</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Hours</h4>
+                                <p>Monday - Friday: 7am - 9pm<br>Saturday - Sunday: 8am - 10pm</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Contact</h4>
+                                <p>(123) 456-7890<br>hello@brewandbloom.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="message-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <i class="fas fa-coffee"></i>
+                        <span>Brew & Bloom</span>
+                    </a>
+                    <p class="footer-tagline">Perfecting the coffee equation, one cup at a time.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#order">Order Online</a></li>
+                        <li><a href="#about">Our Story</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Stay Updated</h4>
+                    <p>Get special offers and brewing tips!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2024</span> Brew & Bloom Café. All rights reserved.</p>
+                <p class="math-quote">½x = ¾ ∴ x = perfect coffee</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-bag"></i> Your Order</h3>
+            <button class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body">
+            <!-- Cart items will be added here by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-totals">
+                <div class="total-row">
+                    <span>Total:</span>
+                    <span class="total-amount">$0.00</span>
+                </div>
+            </div>
+            <button class="btn checkout-btn-sidebar" disabled>
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+    <div class="cart-overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

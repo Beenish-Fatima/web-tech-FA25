@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'E-commerce Store' %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding-top: 20px; }
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 50px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 rounded">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">E-commerce Store</a>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/admin">Admin Panel</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero-section text-center">
+            <h1 class="display-4">Welcome to Our Store</h1>
+            <p class="lead">Amazing products at great prices</p>
+            <a href="/admin" class="btn btn-light btn-lg mt-3">
+                Go to Admin Panel
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2 text-center">
+                <h2 class="mb-4">Admin Panel Features</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-box-seam" style="font-size: 2rem; color: #3498db;"></i>
+                                <h5 class="card-title mt-2">Product Management</h5>
+                                <p class="card-text">Full CRUD operations for products with image upload</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-bar-chart" style="font-size: 2rem; color: #2ecc71;"></i>
+                                <h5 class="card-title mt-2">Dashboard</h5>
+                                <p class="card-text">Real-time statistics and analytics</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-database" style="font-size: 2rem; color: #e74c3c;"></i>
+                                <h5 class="card-title mt-2">MongoDB</h5>
+                                <p class="card-text">Data stored in MongoDB with Mongoose ODM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <h4>Getting Started</h4>
+                    <p>Click the button below to access the admin panel:</p>
+                    <a href="/admin" class="btn btn-primary btn-lg">
+                        <i class="bi bi-shield-lock"></i> Access Admin Panel
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-5 pt-4 border-top text-center">
+            <p>&copy; 2024 E-commerce Store. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+</html>
