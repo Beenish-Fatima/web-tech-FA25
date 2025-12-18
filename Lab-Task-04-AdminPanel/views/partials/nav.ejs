@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <!-- Brand/Logo -->
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-code me-2"></i>BeBuilder
+        </a>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- Home Link -->
+                <li class="nav-item">
+                    <a class="nav-link <%= title && title.includes('Home') ? 'active' : '' %>" href="/">
+                        <i class="fas fa-home me-1"></i>Home
+                    </a>
+                </li>
+                
+                <!-- Products Link -->
+                <li class="nav-item">
+                    <a class="nav-link <%= title && title.includes('Products') ? 'active' : '' %>" href="/products">
+                        <i class="fas fa-box me-1"></i>Products
+                    </a>
+                </li>
+                
+                <!-- Services Link -->
+                <li class="nav-item">
+                    <a class="nav-link <%= title && title.includes('Services') ? 'active' : '' %>" href="/services">
+                        <i class="fas fa-cogs me-1"></i>Services
+                    </a>
+                </li>
+                
+                <!-- About Link -->
+                <li class="nav-item">
+                    <a class="nav-link <%= title && title.includes('About') ? 'active' : '' %>" href="/about">
+                        <i class="fas fa-info-circle me-1"></i>About
+                    </a>
+                </li>
+                
+                <!-- Contact Link -->
+                <li class="nav-item">
+                    <a class="nav-link <%= title && title.includes('Contact') ? 'active' : '' %>" href="/contact">
+                        <i class="fas fa-envelope me-1"></i>Contact
+                    </a>
+                </li>
+                
+                <!-- ADMIN PANEL LINK - Add this new item -->
+             <!-- Replace ONLY the admin panel link in your nav.ejs with this: -->
+<li class="nav-item">
+    <a class="nav-link text-warning fw-bold" 
+       href="/admin/dashboard" 
+       style="background: rgba(255, 193, 7, 0.1); border-radius: 5px; padding: 5px 15px; cursor: pointer;">
+        <i class="fas fa-user-shield me-1"></i>Admin Panel
+    </a>
+</li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+

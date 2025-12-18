@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | BeBuilder Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <style>
+        :root {
+            /* EXACT WEBSITE COLORS */
+            --primary-color: #111;          /* Website header background */
+            --secondary-color: #222;        /* Darker shade */
+            --accent-color: #f1c40f;        /* Yellow accent from website */
+            --accent-hover: #d4ac0d;        /* Yellow hover color */
+            --success-color: #27ae60;       /* Keep for success states */
+            --danger-color: #e74c3c;        /* Keep for danger states */
+            --light-color: #f9f9f9;         /* Light background from website */
+            --text-color: #333;             /* Main text color */
+            --text-light: #666;             /* Secondary text */
+            --text-dark: #111;              /* Dark text */
+            --bg-color: #fff;               /* White background */
+            --card-bg: #fff;                /* Card background */
+            --border-color: #ddd;           /* Border color */
+            --shadow-color: rgba(0,0,0,0.1); /* Shadow color */
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            font-family: "Poppins", sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* ============================================
+           ADMIN SIDEBAR - MATCHES WEBSITE HEADER
+        ============================================ */
+        .admin-sidebar {
+            background-color: var(--primary-color);
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            padding: 0;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .admin-sidebar .brand {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background-color: var(--secondary-color);
+        }
+        
+        .admin-sidebar .brand h3 {
+            margin: 0;
+            font-weight: 700;
+            color: var(--accent-color); /* Yellow logo color */
+            font-size: 1.5rem;
+        }
+        
+        .admin-sidebar .brand small {
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        .admin-sidebar .nav-menu {
+            padding: 20px 0;
+        }
+        
+        .admin-sidebar .nav-item {
+            margin: 5px 0;
+        }
+        
+        .admin-sidebar .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .admin-sidebar .nav-link:hover,
+        .admin-sidebar .nav-link.active {
+            color: var(--accent-color);
+            background-color: rgba(241, 196, 15, 0.1);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .admin-sidebar .nav-link i {
+            width: 25px;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* ============================================
+           ADMIN CONTENT AREA
+        ============================================ */
+        .admin-content {
+            margin-left: 250px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .admin-header {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 3px solid var(--accent-color);
+        }
+        
+        .admin-header h1 {
+            margin: 0;
+            color: var(--text-dark);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        /* ============================================
+           STAT CARDS - MATCHES WEBSITE BUTTONS
+        ============================================ */
+        .stat-card {
+            text-align: center;
+            padding: 25px 15px;
+            border-radius: 10px;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--card-bg);
+            border-top: 4px solid;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .stat-card.total-products {
+            border-color: var(--accent-color);
+        }
+        
+        .stat-card.featured-products {
+            border-color: #27ae60;
+        }
+        
+        .stat-card.low-stock {
+            border-color: #e74c3c;
+        }
+        
+        .stat-card.avg-rating {
+            border-color: #f39c12;
+        }
+        
+        .stat-card i {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--text-dark);
+        }
+        
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        /* ============================================
+           ADMIN CARDS - MATCHES WEBSITE CARDS
+        ============================================ */
+        .admin-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .admin-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        /* ============================================
+           BUTTONS - MATCHES WEBSITE BUTTONS
+        ============================================ */
+        .btn-admin {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--text-dark);
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-admin:hover {
+            background: var(--accent-hover);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3);
+        }
+        
+        .btn-outline-admin {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-admin:hover {
+            background: var(--accent-color);
+            color: var(--text-dark);
+        }
+        
+        .btn-edit {
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        .btn-delete {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        .btn-view {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        .action-buttons .btn {
+            margin-right: 5px;
+            transition: all 0.3s;
+        }
+        
+        .action-buttons .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* ============================================
+           BADGES - MATCHES WEBSITE BADGES
+        ============================================ */
+        .badge-category {
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-featured {
+            background-color: #27ae60;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* ============================================
+           TABLES - MATCHES WEBSITE TABLES
+        ============================================ */
+        .table th {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            font-weight: 600;
+            padding: 15px;
+        }
+        
+        .table td {
+            vertical-align: middle;
+            padding: 12px 15px;
+            border-color: var(--border-color);
+        }
+        
+        .table-hover tbody tr:hover {
+            background-color: rgba(241, 196, 15, 0.05);
+        }
+        
+        /* ============================================
+           ALERTS
+        ============================================ */
+        .alert-admin {
+            border-radius: 10px;
+            border: none;
+            padding: 15px 20px;
+            border-left: 4px solid;
+            background-color: rgba(241, 196, 15, 0.1);
+        }
+        
+        .alert-success {
+            border-left-color: #27ae60 !important;
+            background-color: rgba(39, 174, 96, 0.1);
+            color: #27ae60;
+        }
+        
+        .alert-danger {
+            border-left-color: var(--danger-color) !important;
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+        }
+        
+        /* ============================================
+           QUICK ACTIONS
+        ============================================ */
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .quick-actions .btn {
+            text-align: left;
+            padding: 12px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        /* ============================================
+           CATEGORY LIST
+        ============================================ */
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .category-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* ============================================
+           CURRENT TIME DISPLAY
+        ============================================ */
+        .current-time {
+            background: var(--light-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        
+        /* ============================================
+           RESPONSIVE DESIGN
+        ============================================ */
+        @media (max-width: 900px) {
+            .admin-sidebar {
+                width: 100%;
+                position: relative;
+                min-height: auto;
+            }
+            
+            .admin-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .stat-card {
+                margin-bottom: 15px;
+            }
+        }
+        
+        /* ============================================
+           FORM STYLES
+        ============================================ */
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.1);
+        }
+        
+        .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.1);
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        /* ============================================
+           PRODUCT IMAGE STYLES
+        ============================================ */
+        .product-img-admin {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid var(--border-color);
+        }
+        
+        /* ============================================
+           STATUS INDICATORS
+        ============================================ */
+        .status-in-stock {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .status-low-stock {
+            color: #f39c12;
+            font-weight: 600;
+        }
+        
+        .status-out-stock {
+            color: var(--danger-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-sidebar">
+        <div class="brand">
+            <h3><i class="fas fa-cogs me-2"></i>BeBuilder Admin</h3>
+            <small>Dashboard v1.0</small>
+        </div>
+        
+        <div class="nav-menu">
+            <div class="nav-item">
+                <a href="/admin/dashboard" class="nav-link <%= title === 'Dashboard' ? 'active' : '' %>">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="/admin/products" class="nav-link <%= title === 'Products' ? 'active' : '' %>">
+                    <i class="fas fa-box"></i> Products
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="/admin/products/add" class="nav-link <%= title === 'Add Product' ? 'active' : '' %>">
+                    <i class="fas fa-plus-circle"></i> Add Product
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="/" class="nav-link" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> View Website
+                </a>
+            </div>
+            <div class="nav-item mt-4">
+                <a href="/admin/logout" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="admin-content">
+        <div class="admin-header">
+            <h1><i class="fas fa-<%= title === 'Dashboard' ? 'tachometer-alt' : title === 'Products' ? 'box' : 'edit' %> me-2"></i><%= title %></h1>
+            <div>
+                <span class="current-time me-3">
+                    <i class="fas fa-user-circle me-2"></i>Admin User
+                </span>
+                <span class="current-time">
+                    <i class="fas fa-clock me-2"></i><span id="current-time"></span>
+                </span>
+            </div>
+        </div>

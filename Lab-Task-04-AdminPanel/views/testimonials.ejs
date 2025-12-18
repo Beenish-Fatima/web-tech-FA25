@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Client Testimonials</h1>
+            <p>See what our clients have to say about working with us</p>
+        </div>
+    </section>
+
+    <!-- Testimonials Grid -->
+    <section class="testimonials-grid">
+        <div class="container">
+            <div class="testimonials-container">
+                <% testimonials.forEach((testimonial, index) => { %>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p><%= testimonial.text %></p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4><%= testimonial.author %></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+            
+            <!-- Additional Testimonials -->
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"Outstanding work! Our website traffic increased by 300% after working with BeBuilder."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Jennifer L., Marketing Director</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>"The team was professional, creative, and delivered ahead of schedule. Highly recommend!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Robert K., Tech Startup Founder</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Join Our Happy Clients</h2>
+            <p>Let us help you achieve your digital goals</p>
+            <a href="/contact" class="btn btn-light">Start Your Project</a>
+        </div>
+    </section>
+
+<%- include('partials/footer') %>

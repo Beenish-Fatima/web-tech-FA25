@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    
+    <!-- TRY BOTH LINKS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Fallback link -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- TEST: Add inline styles to confirm CSS is the issue -->
+    <style>
+        body {
+            background-color: #f0f0f0 !important;
+            font-family: Arial, sans-serif !important;
+        }
+        .css-test-message {
+            background: red;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px;
+            border: 3px solid yellow;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">BeBuilder</div>
+            <ul class="nav-links">
+                <li><a href="/" class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">Home</a></li>
+                <li><a href="/products" class="<%= typeof page !== 'undefined' && page === 'products' ? 'active' : '' %>">Products</a></li>
+                <li><a href="/about" class="<%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>">About</a></li>
+                <li><a href="/services" class="<%= typeof page !== 'undefined' && page === 'services' ? 'active' : '' %>">Services</a></li>
+                <li><a href="/testimonials" class="<%= typeof page !== 'undefined' && page === 'testimonials' ? 'active' : '' %>">Testimonials</a></li>
+                <li><a href="/contact" class="<%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+    <main>

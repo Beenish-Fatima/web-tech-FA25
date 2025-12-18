@@ -1,0 +1,84 @@
+<%- include('../partials/admin-header.ejs', { title: 'Products' }) %>
+
+<div class="admin-card">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3><i class="fas fa-boxes me-2"></i>All Products</h3>
+        <a href="/admin/products/add" class="btn btn-admin">
+            <i class="fas fa-plus me-2"></i>Add New Product
+        </a>
+    </div>
+    
+    <% if (message) { %>
+        <div class="alert alert-<%= message.type %> alert-admin">
+            <i class="fas fa-<%= message.type === 'success' ? 'check-circle' : 'exclamation-circle' %> me-2"></i>
+            <%= message.text %>
+        </div>
+    <% } %>
+    
+    <div class="table-responsive">
+        <table id="productsTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Rating</th>
+                    <th>Featured</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td><%= product._id.toString().substring(0, 8) %>...</td>
+                        <td>
+                            <img src="<%= product.image %>" alt="<%= product.name %>" 
+                                 style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
+                        </td>
+                        <td><strong><%= product.name %></strong></td>
+                        <td><span class="badge-category"><%= product.category %></span></td>
+                        <td>$<%= product.price.toFixed(2) %></td>
+                        <td>
+                            <% if (product.stock > 10) { %>
+                                <span class="text-success"><%= product.stock %></span>
+                            <% } else if (product.stock > 0) { %>
+                                <span class="text-warning"><%= product.stock %></span>
+                            <% } else { %>
+                                <span class="text-danger">0</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <i class="fas fa-star text-warning"></i> <%= product.rating %>
+                        </td>
+                        <td>
+                            <% if (product.featured) { %>
+                                <span class="badge-featured">Yes</span>
+                            <% } else { %>
+                                <span class="badge bg-secondary">No</span>
+                            <% } %>
+                        </td>
+                        <td><%= product.createdAt.toLocaleDateString() %></td>
+                        <td class="action-buttons">
+                            <a href="/products/<%= product._id %>" target="_blank" class="btn btn-sm btn-view">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="/admin/products/edit/<%= product._id %>" class="btn btn-sm btn-edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button onclick="confirmDelete('<%= product._id %>', '<%= product.name %>')" 
+                                    class="btn btn-sm btn-delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('../partials/admin-footer.ejs') %>

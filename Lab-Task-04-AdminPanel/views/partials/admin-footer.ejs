@@ -1,0 +1,124 @@
+        <footer class="mt-5 pt-4" style="border-top: 1px solid #333;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p style="color: #bbb; margin-bottom: 5px;">
+                            <i class="fas fa-copyright me-1"></i> <%= new Date().getFullYear() %> BeBuilder Admin Panel
+                        </p>
+                        <p style="color: #777; font-size: 0.9rem;">
+                            <i class="fas fa-database me-1"></i> Connected to MongoDB
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <p style="color: #bbb;">
+                            <i class="fas fa-server me-1"></i> Version 1.0.0
+                            <span class="ms-3">
+                                <i class="fas fa-calendar me-1"></i> <%= new Date().toLocaleDateString() %>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.css"></script>
+    
+    <script>
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const dateString = now.toLocaleDateString();
+            document.getElementById('current-time').textContent = `${dateString} ${timeString}`;
+        }
+        
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        // Initialize DataTables
+        $(document).ready(function() {
+            if ($('#productsTable').length) {
+                $('#productsTable').DataTable({
+                    "pageLength": 10,
+                    "order": [[0, "desc"]],
+                    "responsive": true,
+                    "language": {
+                        "search": "Search products:",
+                        "lengthMenu": "Show _MENU_ entries",
+                        "info": "Showing _START_ to _END_ of _TOTAL_ products",
+                        "paginate": {
+                            "previous": "<i class='fas fa-chevron-left'></i>",
+                            "next": "<i class='fas fa-chevron-right'></i>"
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Delete confirmation
+        function confirmDelete(productId, productName) {
+            if (confirm(`⚠️ Delete Product\n\nAre you sure you want to delete "${productName}"?\n\nThis action cannot be undone.`)) {
+                window.location.href = `/admin/products/delete/${productId}`;
+            }
+        }
+        
+        // Form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('.needs-validation');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+            
+            // Add active class to current page nav link
+            const currentPage = '<%= title %>';
+            const navLinks = document.querySelectorAll('.admin-sidebar .nav-link');
+            navLinks.forEach(link => {
+                const linkText = link.textContent.trim();
+                if (linkText === currentPage || 
+                    (currentPage === 'Add Product' && linkText === 'Add Product') ||
+                    (currentPage === 'Products' && linkText === 'Products') ||
+                    (currentPage === 'Dashboard' && linkText === 'Dashboard')) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Image preview for product forms
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Auto-calculate rating stars
+        function updateRatingStars(rating) {
+            const stars = document.querySelectorAll('.rating-stars i');
+            stars.forEach((star, index) => {
+                if (index < Math.floor(rating)) {
+                    star.className = 'fas fa-star text-warning';
+                } else if (index === Math.floor(rating) && rating % 1 !== 0) {
+                    star.className = 'fas fa-star-half-alt text-warning';
+                } else {
+                    star.className = 'far fa-star text-warning';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
