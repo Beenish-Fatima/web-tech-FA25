@@ -1,0 +1,97 @@
+<%- include('../partials/admin-header.ejs', { title: 'Add Product' }) %>
+
+<div class="admin-card">
+    <h3><i class="fas fa-plus-circle me-2"></i>Add New Product</h3>
+    <p class="text-muted mb-4">Fill in the details to add a new product to your store.</p>
+    
+    <% if (message) { %>
+        <div class="alert alert-<%= message.type %> alert-admin">
+            <i class="fas fa-<%= message.type === 'success' ? 'check-circle' : 'exclamation-circle' %> me-2"></i>
+            <%= message.text %>
+        </div>
+    <% } %>
+    
+    <!-- FIXED: removed enctype="multipart/form-data" -->
+    <form action="/admin/products" method="POST" class="needs-validation" novalidate>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Product Name *</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="invalid-feedback">Please enter a product name.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description *</label>
+                    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+                    <div class="invalid-feedback">Please enter a product description.</div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price ($) *</label>
+                            <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                            <div class="invalid-feedback">Please enter a valid price.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">Stock Quantity *</label>
+                            <input type="number" class="form-control" id="stock" name="stock" required>
+                            <div class="invalid-feedback">Please enter stock quantity.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category *</label>
+                    <select class="form-select" id="category" name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Web Design">Web Design</option>
+                        <option value="Development">Development</option>
+                        <option value="E-commerce">E-commerce</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Consulting">Consulting</option>
+                        <option value="Design">Design</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a category.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image URL *</label>
+                    <input type="url" class="form-control" id="image" name="image" required>
+                    <div class="invalid-feedback">Please enter a valid image URL.</div>
+                    <small class="text-muted">Enter a direct image URL from Unsplash or other image hosting service.</small>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating (0-5)</label>
+                    <input type="number" step="0.1" min="0" max="5" class="form-control" id="rating" name="rating" value="4.5">
+                </div>
+                
+                <div class="mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="featured" name="featured">
+                        <label class="form-check-label" for="featured">
+                            Mark as Featured Product
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-admin">
+                        <i class="fas fa-save me-2"></i>Save Product
+                    </button>
+                    <a href="/admin/products" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/admin-footer.ejs') %>

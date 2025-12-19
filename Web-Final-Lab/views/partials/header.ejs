@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #f0f0f0 !important;
+            font-family: Arial, sans-serif !important;
+        }
+        
+        /* Style for admin link */
+        .nav-links .admin-link {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+            color: #000 !important;
+            font-weight: bold;
+            padding: 8px 15px !important;
+            border-radius: 20px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links .admin-link:hover {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+        }
+        
+        /* Cart link styles */
+        .nav-links .cart-link {
+            position: relative;
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white !important;
+            font-weight: bold;
+            padding: 8px 15px !important;
+            border-radius: 20px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .nav-links .cart-link:hover {
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.4);
+        }
+        
+        .cart-count {
+            background: #ff5722;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">BeBuilder</div>
+            <ul class="nav-links">
+                <li><a href="/" class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>">
+                    <i class="fas fa-home me-1"></i>Home
+                </a></li>
+                <li><a href="/products" class="<%= typeof page !== 'undefined' && page === 'products' ? 'active' : '' %>">
+                    <i class="fas fa-store me-1"></i>Products
+                </a></li>
+                <li><a href="/about" class="<%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>">
+                    <i class="fas fa-info-circle me-1"></i>About
+                </a></li>
+                <li><a href="/services" class="<%= typeof page !== 'undefined' && page === 'services' ? 'active' : '' %>">
+                    <i class="fas fa-concierge-bell me-1"></i>Services
+                </a></li>
+                <li><a href="/testimonials" class="<%= typeof page !== 'undefined' && page === 'testimonials' ? 'active' : '' %>">
+                    <i class="fas fa-comments me-1"></i>Testimonials
+                </a></li>
+                <li><a href="/contact" class="<%= typeof page !== 'undefined' && page === 'contact' ? 'active' : '' %>">
+                    <i class="fas fa-envelope me-1"></i>Contact
+                </a></li>
+                
+                <!-- CART LINK - SAFER VERSION -->
+                <li>
+                    <a href="/products/cart/view" class="cart-link">
+                        <i class="fas fa-shopping-cart"></i> Cart 
+                        <% 
+                            // Safely get cart count
+                            let count = 0;
+                            if (typeof cartCount !== 'undefined' && cartCount !== null) {
+                                count = parseInt(cartCount) || 0;
+                            }
+                            
+                            if (count > 0) { 
+                        %>
+                            <span class="cart-count"><%= count %></span>
+                        <% } %>
+                    </a>
+                </li>
+                
+                <!-- ADMIN LINK -->
+                <li><a href="/admin/dashboard" class="admin-link">
+                    <i class="fas fa-user-shield me-1"></i>Admin
+                </a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+    <main>

@@ -1,0 +1,125 @@
+<%- include('../partials/admin-header.ejs', { title: 'Dashboard' }) %>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="stat-card total-products">
+            <i class="fas fa-box"></i>
+            <div class="number"><%= stats.totalProducts %></div>
+            <div class="label">Total Products</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card featured-products">
+            <i class="fas fa-star"></i>
+            <div class="number"><%= stats.featuredProducts %></div>
+            <div class="label">Featured Products</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card low-stock">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div class="number"><%= stats.lowStockProducts %></div>
+            <div class="label">Low Stock (< 5)</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stat-card avg-rating">
+            <i class="fas fa-chart-line"></i>
+            <div class="number"><%= stats.averageRating.toFixed(1) %></div>
+            <div class="label">Avg. Rating</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="admin-card">
+            <h3><i class="fas fa-chart-bar me-2"></i>Recent Products</h3>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (recentProducts.length > 0) { %>
+                            <% recentProducts.forEach(product => { %>
+                                <tr>
+                                    <td><%= product.name %></td>
+                                    <td><span class="badge-category"><%= product.category %></span></td>
+                                    <td>$<%= product.price.toFixed(2) %></td>
+                                    <td>
+                                        <% if (product.stock > 10) { %>
+                                            <span class="text-success"><%= product.stock %></span>
+                                        <% } else if (product.stock > 0) { %>
+                                            <span class="text-warning"><%= product.stock %></span>
+                                        <% } else { %>
+                                            <span class="text-danger">0</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <% if (product.featured) { %>
+                                            <span class="badge-featured">Featured</span>
+                                        <% } else { %>
+                                            <span class="badge bg-secondary">Regular</span>
+                                        <% } %>
+                                    </td>
+                                    <td class="action-buttons">
+                                        <a href="/admin/products/edit/<%= product._id %>" class="btn btn-sm btn-edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button onclick="confirmDelete('<%= product._id %>', '<%= product.name %>')" 
+                                                class="btn btn-sm btn-delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">No products found</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="admin-card">
+            <h3><i class="fas fa-info-circle me-2"></i>Quick Actions</h3>
+            <div class="d-grid gap-3">
+                <a href="/admin/products/add" class="btn btn-admin">
+                    <i class="fas fa-plus me-2"></i>Add New Product
+                </a>
+                <a href="/admin/products" class="btn btn-admin">
+                    <i class="fas fa-list me-2"></i>View All Products
+                </a>
+                <a href="/" target="_blank" class="btn btn-admin">
+                    <i class="fas fa-external-link-alt me-2"></i>Visit Website
+                </a>
+            </div>
+            
+            <hr>
+            
+            <h5 class="mt-4"><i class="fas fa-chart-pie me-2"></i>Categories Distribution</h5>
+            <ul class="list-group">
+                <% Object.keys(categoryStats).forEach(category => { %>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <%= category %>
+                        <span class="badge bg-primary rounded-pill"><%= categoryStats[category] %></span>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/admin-footer.ejs') %>

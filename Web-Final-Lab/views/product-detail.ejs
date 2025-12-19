@@ -1,0 +1,121 @@
+<%- include('partials/header') %>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1><%= product.name %></h1>
+            <p><%= product.category %> Service</p>
+        </div>
+    </section>
+
+    <!-- Product Detail -->
+    <section class="product-detail-section">
+        <div class="container">
+            <a href="/products" class="btn btn-outline back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Products
+            </a>
+            
+            <div class="product-detail-container">
+                <div class="product-detail-image">
+                    <img src="<%= product.image %>" alt="<%= product.name %>">
+                </div>
+                <div class="product-detail-info">
+                    <div class="product-detail-header">
+                        <div>
+                            <h2 class="product-detail-title"><%= product.name %></h2>
+                            <span class="product-category-badge"><%= product.category %></span>
+                        </div>
+                        <div class="price-rating">
+                            <div class="product-detail-price">$<%= product.price.toFixed(2) %></div>
+                            <div class="product-rating-stars">
+                                <% 
+                                for(let i = 0; i < 5; i++) { 
+                                    let isFilled = i < Math.floor(product.rating);
+                                %>
+                                    <% if (isFilled) { %>
+                                        <i class="fas fa-star star-filled"></i>
+                                    <% } else { %>
+                                        <i class="fas fa-star star-empty"></i>
+                                    <% } %>
+                                <% } %>
+                                <span class="rating-value">(<%= product.rating %>)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-description-section">
+                        <h3>Description</h3>
+                        <p class="product-description-full"><%= product.description %></p>
+                    </div>
+                    
+                    <div class="product-features">
+                        <div class="feature-box">
+                            <i class="fas fa-box feature-icon"></i>
+                            <div class="feature-title">Availability</div>
+                            <% 
+                            let availabilityClass = 'feature-value';
+                            let availabilityText = product.stock > 0 ? `${product.stock} slots available` : 'Currently unavailable';
+                            
+                            if (product.stock <= 5 && product.stock > 0) {
+                                availabilityClass = 'feature-value low-stock';
+                            } else if (product.stock <= 0) {
+                                availabilityClass = 'feature-value out-of-stock';
+                            }
+                            %>
+                            <div class="<%= availabilityClass %>"><%= availabilityText %></div>
+                        </div>
+                        <div class="feature-box">
+                            <i class="fas fa-clock feature-icon"></i>
+                            <div class="feature-title">Delivery Time</div>
+                            <div class="feature-value">7-14 business days</div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <!-- ADD TO CART BUTTON -->
+                        <form action="/products/add-to-cart/<%= product._id %>" method="POST" class="cart-form">
+                            <button type="submit" class="btn btn-primary cart-btn">
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </form>
+                        
+                        <!-- INQUIRE BUTTON -->
+                        <a href="/contact?service=<%= encodeURIComponent(product.name) %>" class="btn btn-secondary inquire-btn">
+                            <i class="fas fa-question-circle"></i> Inquire About This Service
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Related Products -->
+            <% if (relatedProducts.length > 0) { %>
+                <div class="related-products">
+                    <h2>Related Services</h2>
+                    <div class="related-grid">
+                        <% relatedProducts.forEach(relatedProduct => { %>
+                            <div class="related-card">
+                                <img src="<%= relatedProduct.image %>" alt="<%= relatedProduct.name %>" class="related-image">
+                                <div class="related-content">
+                                    <h3 class="related-title"><%= relatedProduct.name %></h3>
+                                    <div class="related-info">
+                                        <span class="related-price">$<%= relatedProduct.price.toFixed(2) %></span>
+                                        <a href="/products/<%= relatedProduct._id %>" class="btn btn-outline">
+                                            View
+                                        </a>
+                                    </div>
+                                    <!-- ADD TO CART FOR RELATED PRODUCTS -->
+                                    <form action="/products/add-to-cart/<%= relatedProduct._id %>" method="POST" class="mt-2">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-cart-plus"></i> Add to Cart
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </section>
+
+<%- include('partials/footer') %>

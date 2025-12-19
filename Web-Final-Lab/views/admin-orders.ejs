@@ -1,0 +1,193 @@
+<%- include('partials/admin-header') %>
+
+<main class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="fas fa-clipboard-list"></i> Orders Management</h1>
+        <a href="/admin/dashboard" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+    
+    <!-- Messages -->
+    <% 
+        let displayMessage = null;
+        if (typeof message !== 'undefined' && message !== null && message.text) {
+            displayMessage = message;
+        }
+    %>
+    
+    <% if (displayMessage) { %>
+        <div class="alert alert-<%= displayMessage.type === 'error' ? 'danger' : displayMessage.type === 'warning' ? 'warning' : 'success' %>">
+            <%= displayMessage.text %>
+        </div>
+    <% } %>
+    
+    <% if (!orders || orders.length === 0) { %>
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> No orders found. Orders will appear here when customers checkout.
+        </div>
+    <% } else { %>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order #</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orders.forEach(order => { %>
+                                <tr>
+                                    <td>
+                                        <strong><%= order.orderNumber %></strong><br>
+                                        <small class="text-muted">ID: <%= order._id.toString().slice(-6) %></small>
+                                    </td>
+                                    <td>
+                                        <strong><%= order.customerName %></strong><br>
+                                        <small class="text-muted"><%= order.customerEmail %></small><br>
+                                        <small>Items: <%= order.items.length %></small>
+                                    </td>
+                                    <td>
+                                        <%= order.createdAt.toLocaleDateString() %><br>
+                                        <small class="text-muted"><%= order.createdAt.toLocaleTimeString() %></small>
+                                    </td>
+                                    <td>
+                                        <strong>$<%= order.totalAmount.toFixed(2) %></strong>
+                                    </td>
+                                    <td>
+                                        <% 
+                                            let statusClass = 'secondary';
+                                            if (order.status === 'Confirmed') statusClass = 'success';
+                                            else if (order.status === 'Cancelled') statusClass = 'danger';
+                                            else if (order.status === 'Delivered') statusClass = 'info';
+                                        %>
+                                        <span class="badge bg-<%= statusClass %>">
+                                            <%= order.status %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <select class="form-select form-select-sm status-select" 
+                                                    data-order-id="<%= order._id %>"
+                                                    style="width: 120px;">
+                                                <option value="Pending" <%= order.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                                                <option value="Confirmed" <%= order.status === 'Confirmed' ? 'selected' : '' %>>Confirmed</option>
+                                                <option value="Cancelled" <%= order.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                                                <option value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+                                            </select>
+                                            <a href="/admin/orders/<%= order._id %>" 
+                                               class="btn btn-outline-primary"
+                                               title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <span class="text-muted">
+                            Showing <%= orders.length %> order<%= orders.length !== 1 ? 's' : '' %>
+                        </span>
+                    </div>
+                    <div>
+                        <a href="/admin/dashboard" class="btn btn-outline-secondary">
+                            <i class="fas fa-chart-bar"></i> Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const statusSelects = document.querySelectorAll('.status-select');
+    
+    statusSelects.forEach(select => {
+        select.addEventListener('change', function() {
+            const orderId = this.dataset.orderId;
+            const newStatus = this.value;
+            
+            if (!confirm(`Change order status to "${newStatus}"?`)) {
+                this.value = this.getAttribute('data-previous-value') || this.value;
+                return;
+            }
+            
+            // Store current value in case of error
+            this.setAttribute('data-previous-value', this.value);
+            
+            fetch(`/admin/orders/${orderId}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status: newStatus })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('✅ Order status updated successfully!');
+                    location.reload();
+                } else {
+                    alert('❌ Error: ' + data.message);
+                    // Revert to previous value
+                    this.value = this.getAttribute('data-previous-value') || this.value;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('❌ Error updating status. Please try again.');
+                // Revert to previous value
+                this.value = this.getAttribute('data-previous-value') || this.value;
+            });
+        });
+    });
+});
+</script>
+
+<style>
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.status-pending { background: #ffd700; color: #333; }
+.status-confirmed { background: #28a745; color: white; }
+.status-cancelled { background: #dc3545; color: white; }
+.status-delivered { background: #007bff; color: white; }
+
+.table th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+}
+
+.btn-group-sm .form-select {
+    width: auto;
+    margin-right: 5px;
+}
+
+.badge {
+    font-size: 0.85em;
+    padding: 5px 10px;
+}
+</style>
+
+<%- include('partials/admin-footer') %>

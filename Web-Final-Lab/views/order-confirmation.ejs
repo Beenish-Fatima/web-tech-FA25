@@ -1,0 +1,102 @@
+<%- include('partials/header') %>
+
+<main class="container">
+    <div class="text-center py-5">
+        <div class="confirmation-icon mb-4">
+            <i class="fas fa-check-circle fa-5x text-success"></i>
+        </div>
+        
+        <h1 class="mb-3">Order Confirmed!</h1>
+        <p class="lead mb-4">Thank you for your order. We've received it and will process it shortly.</p>
+        
+        <div class="card mx-auto" style="max-width: 600px;">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Order Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Order Number:</strong><br>
+                        <code class="fs-5"><%= order.orderNumber %></code>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Order Date:</strong><br>
+                        <%= order.createdAt.toLocaleDateString() %>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Customer Name:</strong><br>
+                        <%= order.customerName %>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Email:</strong><br>
+                        <%= order.customerEmail %>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Order Status:</strong><br>
+                        <span class="badge bg-success fs-6"><%= order.status %></span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Total Amount:</strong><br>
+                        <span class="fs-4 fw-bold text-success">$<%= order.totalAmount.toFixed(2) %></span>
+                    </div>
+                </div>
+                
+                <% if (order.items && order.items.length > 0) { %>
+                    <hr>
+                    <h5>Order Items:</h5>
+                    <ul class="list-group">
+                        <% order.items.forEach(item => { %>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span><%= item.productName %> × <%= item.quantity %></span>
+                                <span>$<%= (item.price * item.quantity).toFixed(2) %></span>
+                            </li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="mt-5">
+            <a href="/products" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-shopping-bag"></i> Continue Shopping
+            </a>
+            <a href="/" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-home"></i> Return Home
+            </a>
+        </div>
+        
+        <div class="alert alert-info mt-4" style="max-width: 600px; margin: 0 auto;">
+            <i class="fas fa-info-circle"></i>
+            <strong>Note:</strong> This is a demo order. In a real application, you would receive an email confirmation.
+        </div>
+    </div>
+</main>
+
+<style>
+.confirmation-icon {
+    animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.card {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.badge {
+    font-size: 0.9em;
+    padding: 8px 15px;
+}
+</style>
+
+<%- include('partials/footer') %>
